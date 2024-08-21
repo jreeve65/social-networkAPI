@@ -1,0 +1,28 @@
+{
+  "name": "social-networkapi",
+  "version": "1.0.0",
+  "description": "A sample social networking api",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/jreeve65/social-networkAPI"
+  },
+  "keywords": [
+    "API",
+    "JavaScript",
+    "Social",
+    "Networking",
+    "Programming"
+  ],
+  "author": "Jordan Reeve",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^8.0.0",
+    "nodemon": "^3.1.4"
+  }
+}
