@@ -14,7 +14,7 @@ module.exports = {
     }, 
     async getSingleUser(req,res){
         try{
-        const user = await User.findOne({_id: req.params.userId}).select('-__v');
+        const user = await User.findOne({_id: req.params.userId}).select('-__v').populate('friends');
         if(!user){
             return res.status(404).json({message:'user with that id does not exist in database'});
 
@@ -55,6 +55,34 @@ async deleteUser(req,res){
         res.status(200).json(user);
     }catch(err){
         return res.status(500).json(err);
+    }
+},
+async addFriend(req,res){
+    try{
+        const user = await User.findOneAndUpdate(
+            {_id:req.params.userId},
+            {$addToSet:{friends: req.params.friendId}},
+            {runValidators:true,new: true});
+            if(!user) {
+                return res.status(404).json({message: 'User not found with that id'});
+            }
+            res.status(200).json(user);
+    } catch(err){
+        res.status(500).json(err);
+    }
+},
+async removeFriend(req,res){
+    try{
+        const user = await User.findOneAndUpdate(
+            {_id:req.params.userId},
+            {$pull:{friends: req.params.friendId}},
+            {runValidators:true,new: true});
+            if(!user) {
+                return res.status(404).json({message: 'User not found with that id'});
+            }
+            res.status(200).json(user);
+    } catch(err){
+        res.status(500).json(err);
     }
 }
 }
