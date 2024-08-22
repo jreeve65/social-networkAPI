@@ -33,5 +33,28 @@ module.exports = {
     } catch(err){
         res.status(500).json(err);
     }
+   },
+   async updateUser(req,res){
+    try{
+    const user= await User.findOneAndUpdate({_id:req.params.userId},{$set:req.body},{new:true});
+    if(!user){
+        return res.status(404).json({message:'student not found'});
+    }
+    return res.status(200).json(user);
+
+   } catch(err){
+    return res.status(500).json(err);
    }
+},
+async deleteUser(req,res){
+    try{
+        const user = await User.findOneAndDelete({_id: req.params.userId});
+        if(!user){
+            return res.status(404).json({message:"there is no user to destroy"});
+        }
+        res.status(200).json(user);
+    }catch(err){
+        return res.status(500).json(err);
+    }
+}
 }
