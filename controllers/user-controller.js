@@ -11,5 +11,19 @@ module.exports = {
             console.log(err);
             return res.status(500).json(err);
         }
-    } 
+    }, 
+    async getSingleUser(req,res){
+        try{
+        const user = await User.findOne({_id: req.params.userId}).select('-__v');
+        if(!user){
+            return res.status(404).json({message:'user with that id does not exist in database'});
+
+        }
+        return res.status(200).json(user);
+    } catch (err){
+        console.log(err);
+        return res.status(500).json(err);
+    }
+
+    }
 }
